@@ -1,0 +1,55 @@
+//
+//  AddEmailView.swift
+//  InstagramProject
+//
+//  Created by Rachit Sharma on 27/09/2025.
+//
+
+import SwiftUI
+
+struct AddEmailView: View {
+    @EnvironmentObject var ViewModel:RegistrationViewModel
+    @Environment(\.dismiss) var dismiss
+    @State var email: String = ""
+    var body: some View {
+        VStack(spacing: 30){
+            VStack(spacing:10){
+                Text("Add Your Email")
+                    .fontWeight(.bold)
+                    .font(.title)
+                Text("You'll use this email to sign into your account")
+                    .foregroundStyle(.gray)
+            }
+            TextFieldComponent(text:$ViewModel.email, placeholder: "Enter your email")
+            NavigationLink(destination: {
+                AddUserName()
+                    .navigationBarBackButtonHidden(true)
+            }, label: {
+                Text("Next")
+                    .foregroundStyle(.white)
+                    .fontWeight(.bold)
+                    .frame(width: 360, height: 55)
+                    .background(Color.blue)
+                    .clipShape(.rect(cornerRadius: 12))
+            })
+         
+              .toolbar{
+                ToolbarItem(placement: .topBarLeading) {
+            Button(action: {
+                dismiss()
+            }, label: {
+                Image(systemName: "chevron.left")
+            })
+                }
+            }
+
+        }
+        .padding(.top,50)
+        Spacer()
+    }
+}
+
+#Preview {
+    AddEmailView()
+        .environmentObject(RegistrationViewModel())
+}
