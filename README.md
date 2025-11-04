@@ -74,6 +74,7 @@ service cloud.firestore {
 <img width="1470" height="956" alt="Screenshot 2025-11-03 at 23 48 45" src="https://github.com/user-attachments/assets/8e070eec-a2ec-429b-a332-373849910a35" />
 <img width="1470" height="956" alt="Screenshot 2025-11-03 at 23 49 20" src="https://github.com/user-attachments/assets/23740163-6cd7-454b-b20c-fc63a0799b35" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 14 27" src="https://github.com/user-attachments/assets/de98d2f1-1be3-43a6-a4f2-f18a31722f61" />
+<img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 34 36" src="https://github.com/user-attachments/assets/a20b29f3-ab51-49c2-8f37-d2bd4e50ff89" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 31 35" src="https://github.com/user-attachments/assets/d6b0761d-0901-4518-ada7-77d06fb09f23" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 20 19" src="https://github.com/user-attachments/assets/3dda6269-3eb0-45e4-b4cf-a7ef6e974bf3" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 24 22" src="https://github.com/user-attachments/assets/65b54ed7-e5bd-42a7-8140-bec3d6823b7a" />
