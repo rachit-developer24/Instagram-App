@@ -36,7 +36,7 @@ class UploadPostViewModel{
         guard let uid = Auth.auth().currentUser?.uid else {return}
         guard let uiImage = uiImage else {return}
         
-        let postRef = Firestore.firestore().collection("posts").document()
+        let postRef = FirebaseConstants.PostsCollection.document()
         guard let imageurl = try await ImageUploder.uploadImage(image: uiImage) else {return}
         let post = Post(id: postRef.documentID, ownerUid: uid, caption: cation, likes: 0, imageurl: imageurl, timestamp: Timestamp())
         guard let encodedpost = try? Firestore.Encoder().encode(post) else {return}

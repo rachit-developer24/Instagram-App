@@ -9,18 +9,15 @@ import SwiftUI
 import Firebase
 
 struct ContentView: View {
-    @StateObject var ViewModel : ContentViewModel
+    @EnvironmentObject var authManager:AuthManager
     @StateObject var registrationViewModel = RegistrationViewModel()
-    init(){
-        _ViewModel = StateObject(wrappedValue: ContentViewModel())
-    }
     var body: some View {
-        Group{
-            if ViewModel.userSession == nil{
+        VStack{
+            if authManager.userSession == nil{
                 LoginView()
                     .environmentObject(registrationViewModel)
-            }else if let currentuser = ViewModel.currentuser{
-                MainTabView( currentuser:currentuser )
+            }else if let currentUser = authManager.currentUser{
+                MainTabView(currentuser: currentUser)
             }
         }
         

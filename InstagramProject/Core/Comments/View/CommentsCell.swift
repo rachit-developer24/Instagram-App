@@ -8,11 +8,29 @@
 import SwiftUI
 
 struct CommentsCell: View {
+    let comment:CommentsModel
+    var user:User{
+        return User.Mock_Users[0]
+    }
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack{
+            CircularProfileView(user: user, size: .xSmall)
+            VStack(alignment:.leading,spacing: 4){
+                HStack(spacing:2){
+                    Text(user.username)
+                        .fontWeight(.bold)
+                    Text(comment.timestamp.timestampString())
+                        .foregroundStyle(.gray)
+                }
+                Text(comment.commentText)
+                
+            }.font(.caption)
+            Spacer()
+        }
+        .padding(.horizontal)
     }
 }
 
 #Preview {
-    CommentsCell()
+    CommentsCell(comment: DeveloperPreview.shared.comment)
 }

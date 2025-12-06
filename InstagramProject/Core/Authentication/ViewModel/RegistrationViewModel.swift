@@ -11,12 +11,21 @@ class RegistrationViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var username = ""
+    @Published var error:Error?
+    func createUser(with AuthManager:AuthManager) async  -> User?{
+        do{
+            let user =  try await AuthManager.CreateUser(with: email, password: password, username: username)
+            reset()
+            return user
+        }catch{
+            self.error = error
+            return nil
+        }
     
-    func createUser(with AuthManager:AuthManager) async throws{
-        try await AuthManager.CreateUser(with: username, password: password, username: email)
+    }
+    func reset(){
         self.email = ""
         self.password = ""
         self.username = ""
     }
-    
 }

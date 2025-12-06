@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 import Combine
 struct PostSubView: View {
+    @State var ispresented:Bool = false
     private var post:Post{
         return viewModel.post
     }
@@ -47,7 +48,7 @@ struct PostSubView: View {
                         .foregroundStyle(didliked ? .red : .black)
                 }
                 Button {
-                    
+                    ispresented.toggle()
                 } label: {
                     Image(systemName: "message")
                 }
@@ -81,7 +82,7 @@ struct PostSubView: View {
                 .padding(.horizontal,7)
                
                 VStack{
-                    Text("6H")
+                    Text(post.timestamp.timestampString())
                 }
                 .padding(.horizontal,7)
                 .fontWeight(.semibold)
@@ -89,6 +90,10 @@ struct PostSubView: View {
                 .frame(maxWidth: .infinity,alignment: .leading)
                 
             }
+        }
+        .sheet(isPresented: $ispresented) {
+            CommentsView(post: post)
+                .presentationDragIndicator(.visible)
         }
             
         }

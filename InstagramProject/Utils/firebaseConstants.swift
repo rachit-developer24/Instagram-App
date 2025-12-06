@@ -6,3 +6,14 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseFirestore
+struct FirebaseConstants{
+    
+    static let  Root  = Firestore.firestore()
+    
+    static let  UsersCollection = Root.collection("users")
+    
+    static let  PostsCollection = Root.collection("posts")
+    
+}

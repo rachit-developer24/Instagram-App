@@ -10,7 +10,7 @@ import Firebase
 import Foundation
 
 struct PostSevice{
-    private static let postsCollection =   Firestore.firestore().collection("posts")
+    private static let postsCollection =   FirebaseConstants.PostsCollection
     static func FetchFeedPosts()async throws -> [Post]{
         let snapshot = try await postsCollection.getDocuments()
         var posts = snapshot.documents.compactMap({try? $0.data(as: Post.self)})
@@ -36,7 +36,7 @@ extension PostSevice{
         guard let uuid = Auth.auth().currentUser?.uid else {return}
         async let _  = try await postsCollection.document(post.id).collection("post-likes").document(uuid).setData([:])
         async let _ = try await postsCollection.document(post.id).updateData(["likes": post.likes + 1])
-        async let _ = Firestore.firestore().collection("users").document(uuid).collection("user-likes").document(post.id).setData([:])
+        async let _ = FirebaseConstants.UsersCollection.document(uuid).collection("user-likes").document(post.id).setData([:])
         
     }
     
@@ -44,13 +44,13 @@ extension PostSevice{
         guard let uuid = Auth.auth().currentUser?.uid else {return}
         async let _  = try await postsCollection.document(post.id).collection("post-likes").document(uuid).delete()
         async let _ = try await postsCollection.document(post.id).updateData(["likes": post.likes - 1])
-        async let _ = Firestore.firestore().collection("users").document(uuid).collection("user-likes").document(post.id).delete()
+        async let _ = FirebaseConstants.UsersCollection.document(uuid).collection("user-likes").document(post.id).delete()
 
     }
     
     static func CheckUserLikedPost(post:Post)async throws -> Bool{
         guard let uuid = Auth.auth().currentUser?.uid else {return false}
-        let snapshot = try await Firestore.firestore().collection("users").document(uuid).collection("user-likes").document(post.id).getDocument()
+        let snapshot = try await FirebaseConstants.UsersCollection.document(uuid).collection("user-likes").document(post.id).getDocument()
         return snapshot.exists
     }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 struct FeedView: View {
+    @State var isPresented: Bool = false
     @StateObject var ViewModel = PostViewModel()
     var body: some View {
         NavigationStack{

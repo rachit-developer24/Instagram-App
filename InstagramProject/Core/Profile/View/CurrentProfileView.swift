@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CurrentProfileView: View {
+    @EnvironmentObject var authManager:AuthManager
     let user:User
     var body: some View {
                 NavigationStack{
@@ -23,7 +24,7 @@ struct CurrentProfileView: View {
                         .toolbar{
                             ToolbarItem(placement: .topBarTrailing) {
                                 Button {
-                                    AuthService.shared.logout()
+                                    authManager.logout()
                                 } label: {
                                     Image(systemName: "line.horizontal.3")
                                         .foregroundStyle(.black)

@@ -6,6 +6,20 @@
 //
 
 import Foundation
-struct CommentsMode:Codable,Identifiable{
+import Firebase
+import FirebaseFirestore
+struct CommentsModel:Codable,Identifiable{
     
+    @DocumentID var commentid:String?
+    let postId:String
+    let commentOwnerUid:String
+    let timestamp:Timestamp
+    let commentText:String
+    let postOwnerUid:String
+    
+    var user:User?
+    
+    var id:String{
+        return commentid ?? UUID().uuidString
+    }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CompleteSignUpView: View {
+    @EnvironmentObject var AuthManager:AuthManager
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var ViewModel:RegistrationViewModel
     var body: some View {
@@ -27,7 +28,7 @@ struct CompleteSignUpView: View {
             }
             Button {
                 Task{
-                    try await  ViewModel.createUser()
+                     await  ViewModel.createUser(with: AuthManager)
 
                     
                 }
