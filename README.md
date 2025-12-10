@@ -10,12 +10,12 @@ This project is designed to show how I structure and ship a real-world iOS app u
 
 - Modern **SwiftUI + async/await**
 - **MVVM** with a dedicated service layer (no Massive Views)
-- **AuthManager** as an `@EnvironmentObject` (no global auth singletons)
+- **AuthManager** as an @EnvironmentObject
 - Full **Firebase** integration:
   - Authentication (Email/Password)
-  - Firestore (users, posts, comments)
+  - Firestore (users, posts, likes, comments, followers/following)
   - Storage (image uploads)
-- Real social app features: feed, profile, posts, likes, comments, timestamps
+- Real social app features: feed, profile, posts, likes, comments, follow system, timestamps
 
 ---
 
@@ -23,15 +23,17 @@ This project is designed to show how I structure and ship a real-world iOS app u
 
 - Email/password sign up & login (Firebase Auth)
 - Create posts via `PhotosPicker` with JPEG compression and upload to Firebase Storage
-- Feed screen and profile grid with post detail
+- Feed screen + profile grid
 - Like / Unlike posts with live like counts
 - Edit profile (avatar, name, bio)
 - **Per-post comments** stored in a `post-comments` Firestore subcollection
-- **Shared human-readable timestamps** for posts and comments  
+- **Follow / Unfollow** with state-driven UI updates (Follow ↔ Following)
+- **Followers / Following lists** with navigation from profile stats
+- **Human-readable timestamps** for posts and comments  
   (e.g. `2m`, `3h`, `1d` via a reusable `Timestamp` extension)
 - Basic error handling & simple empty states
 
-Planned / next steps: follow/unfollow, search, saved posts, stories, push notifications.
+Planned / next steps: search improvements, saved posts, stories, push notifications, pagination, and stronger error handling.
 
 ---
 
@@ -52,14 +54,14 @@ Planned / next steps: follow/unfollow, search, saved posts, stories, push notifi
 
 - Services (Firebase-facing)
   - `AuthService` – login, register, session
-  - `UserService` – user profiles in Firestore
+  - `UserService` – user profiles + follow system + stats (followers/following/posts)
   - `PostService` – create/fetch posts, likes
   - `CommentsService` – upload & fetch comments per post
 
 - ViewModels
   - One view model per feature/screen
   - Owns `@Published` state and user intents  
-    (e.g. `likePost()`, `uploadComment()`, `loadComments()`)
+    (e.g. `likePost()`, `uploadComment()`, `follow()`, `unfollow()`, `loadComments()`)
 
 ---
 
@@ -74,7 +76,6 @@ Planned / next steps: follow/unfollow, search, saved posts, stories, push notifi
 4. Update the bundle identifier if needed.
 5. Build & run on a simulator or device.
 
----
 
 If you’re reviewing this as part of a hiring process and would like to discuss the code or architecture decisions, I’m happy to walk through the project.
 
@@ -90,6 +91,10 @@ If you’re reviewing this as part of a hiring process and would like to discuss
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 24 22" src="https://github.com/user-attachments/assets/65b54ed7-e5bd-42a7-8140-bec3d6823b7a" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 29 53" src="https://github.com/user-attachments/assets/eba7b14f-7bf1-4d1f-885f-40a49dcadc6c" />
 <img width="1205" height="894" alt="Screenshot 2025-11-14 at 01 01 44" src="https://github.com/user-attachments/assets/4161f0dd-a499-425d-90be-388056eb204c" />
+<img width="1470" height="956" alt="Screenshot 2025-12-10 at 01 16 47" src="https://github.com/user-attachments/assets/bdf837ad-699f-4a38-9e1d-ec08ca5c7027" />
+<img width="1470" height="956" alt="Screenshot 2025-12-10 at 01 16 53" src="https://github.com/user-attachments/assets/456d2b64-c0f3-4b1c-9930-f7647e6b242f" />
+<img width="1470" height="956" alt="Screenshot 2025-12-10 at 01 17 00" src="https://github.com/user-attachments/assets/bf727669-9e7b-4c33-9998-49f073696bef" />
+<img width="1470" height="956" alt="Screenshot 2025-12-10 at 01 17 14" src="https://github.com/user-attachments/assets/736ba566-eb18-4b81-a92e-e2eb43a306c8" />
 
 
 
