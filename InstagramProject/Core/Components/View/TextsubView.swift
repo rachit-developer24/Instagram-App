@@ -15,6 +15,7 @@ struct TextsubView: View {
             Text("\(value)")
             Text(text2)
         }
+        .opacity(value ==  0 ? 0.5 : 1.0)
         .fontWeight(.bold)
     }
 }

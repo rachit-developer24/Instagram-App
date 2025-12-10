@@ -8,31 +8,47 @@
 import SwiftUI
 
 struct SearchSubView: View {
-    let user: User
+    @StateObject var ViewModel = UserListViewModel()
+    @State var searchText: String = ""
+    private let config:UserListConfig
+    init(config:UserListConfig){
+        self.config = config
+    }
     var body: some View {
         HStack{
-            CircularProfileView(user: user, size: .xSmall)
-            VStack(alignment: .leading){
-                Text(user.fullName ?? "")
-                    .fontWeight(.semibold)
-                Text(user.bio ?? "")
-                    .foregroundStyle(.gray)
-                    .font(.caption)
-                
+            ScrollView{
+                LazyVStack(spacing:10){
+                    ForEach(ViewModel.user){user in
+                        NavigationLink(value: user) {
+                            HStack{
+                                CircularProfileView(user: user, size: .xSmall)
+                                VStack(alignment: .leading){
+                                    Text(user.fullName ?? "")
+                                        .fontWeight(.semibold)
+                                    Text(user.bio ?? "")
+                                        .foregroundStyle(.gray)
+                                        .font(.caption)
+                                    
+                                }
+                                Spacer()
+                            }
+                        }
+                        .foregroundStyle(.black)
+                      }
+                }
             }
-            Spacer()
+            .padding(.horizontal)
+            .searchable(text: $searchText, prompt: "search users")
+           
+           
             
+        }
+        .task{
+            await ViewModel.fetchallusers(forconfig:config )
         }
     }
 }
 
 #Preview {
-    SearchSubView(user:  User(
-        id: UUID().uuidString,
-        username: "design_girl",
-        fullName: "Ava Williams",
-        profileurl: "user-venom",
-        bio: "UI/UX obsessed 💡",
-        email: "ava@example.com"
-    ))
+    SearchSubView(config: .explore)
 }

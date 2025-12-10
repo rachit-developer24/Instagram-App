@@ -16,11 +16,20 @@ struct User:Identifiable,Codable,Hashable {
     var bio:String?
     let email:String
     
+    var isfollowed:Bool? = false
+    var stats:UserStats?
     var currentuser:Bool{
         guard let currentuid = Auth.auth().currentUser?.uid else {return false}
         return id == currentuid
     }
 }
+
+struct UserStats:Codable,Hashable{
+    var followingCount:Int
+    var followerCount:Int
+    var postsCount:Int
+}
+
 extension User {
     static var Mock_Users: [User] = [
         User(

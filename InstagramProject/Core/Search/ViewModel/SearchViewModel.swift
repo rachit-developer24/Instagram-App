@@ -18,7 +18,7 @@ class SearchViewModel:ObservableObject{
     @MainActor
     func fetchallusers()async throws{
         do{
-            self.user = try await UserService.fetchusers()
+            self.user = try await UserService.fetchAllusers()
         }catch{
             
         }

@@ -8,16 +8,57 @@
 import SwiftUI
 
 struct ProfileHeaderView: View {
+    @ObservedObject var ViewModel:ProfileViewModel
+    var user:User{
+        return  ViewModel.user
+    }
+    private var isfollowed:Bool{
+        return user.isfollowed ?? false
+    }
+    private var stats:UserStats{
+        return user.stats ?? .init(followingCount: 0, followerCount: 0, postsCount: 0)
+    }
+    private var buttontitle:String{
+        return isfollowed ? "following" : "follow"
+    }
+    private var buttonForegroundColor:Color{
+        if user.currentuser || isfollowed {
+            return .black
+        }else{
+            return .white
+        }
+    }
+    private var buttonBorderColor:Color{
+        if user.currentuser || isfollowed {
+            return .black
+        }else {
+            return .clear
+        }
+    }
+    init(user:User){
+        self._ViewModel = ObservedObject(initialValue: ProfileViewModel(user: user))
+    }
+    private var ButtonBackgroundColor:Color{
+        if user.currentuser || isfollowed {
+            return .white
+        }else{
+            return Color(.systemBlue)
+        }
+    }
     @State var editprofile:Bool = false
-    let user:User
     var body: some View {
         VStack{
             VStack(alignment:.leading){
                 HStack(spacing:30){
                     CircularProfileView(user: user, size: .medium)
-                    TextsubView(value: 3, text2: "Posts")
-                    TextsubView(value: 100, text2: "followers")
-                    TextsubView(value: 100, text2: "following")
+                    TextsubView(value:stats.postsCount, text2: "Posts")
+                    NavigationLink(value: UserListConfig.followers(uid: user.id)) {
+                        TextsubView(value: stats.followerCount, text2: "followers")
+                    }
+                    NavigationLink(value:UserListConfig.following(uid: user.id)) {
+                        TextsubView(value: stats.followingCount, text2: "following")
+                    }
+                   
                 }.font(.footnote)
                     .fontWeight(.bold)
                 VStack(alignment:.leading,spacing: 3){
@@ -34,17 +75,17 @@ struct ProfileHeaderView: View {
                     if user.currentuser{
                         editprofile.toggle()
                     }else{
-                        print("follow me")
+                        handleFollowTapped()
                     }
                     
                 } label: {
-                    Text(user.currentuser ? "Edit Profile" : "Follow")
+                    Text(buttontitle)
                         .fontWeight(.bold)
                         .frame(width: 360, height: 40)
-                        .background(user.currentuser ? Color.white : Color.blue)
-                        .foregroundStyle(user.currentuser ?.black:.white)
+                        .background(ButtonBackgroundColor)
+                        .foregroundStyle(buttonForegroundColor)
                         .clipShape(RoundedRectangle(cornerRadius: 6))
-                        .overlay(RoundedRectangle(cornerRadius: 6).stroke(user.currentuser ? .gray : .clear))
+                        .overlay(RoundedRectangle(cornerRadius: 6).stroke(buttonBorderColor))
                        
                        
                     
@@ -55,12 +96,32 @@ struct ProfileHeaderView: View {
                 
                 
             }.padding(.horizontal)
+            
+        }
+        .navigationDestination(for: UserListConfig.self, destination: { config in
+            SearchSubView(config: config)
+        })
+        .onAppear{
+            ViewModel.fetchUserStats()
+            ViewModel.cheackIfUserIsFollowed()
         }
         .fullScreenCover(isPresented: $editprofile) {
             EditProfileView(user: user)
         }
+       
+        }
+       
+    func handleFollowTapped(){
+        if isfollowed{
+            ViewModel.unfollow()
+        }else{
+            ViewModel.follow()
+        }
     }
 }
+    
+
+
 
 
 #Preview {
