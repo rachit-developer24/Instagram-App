@@ -10,7 +10,7 @@ import SwiftUI
 struct CommentsView: View {
     @State var Commenttext:String = ""
     private var currentUser:User?{
-        return UserService.shared.currentUser
+        return ViewModel.post.user
     }
     @StateObject var ViewModel: CommentsViewModel
     init(post:Post){

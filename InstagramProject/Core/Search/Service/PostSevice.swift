@@ -24,6 +24,9 @@ struct PostSevice{
         return posts
     }
     
+    static func fetchpost(_ postID : String)async throws->Post{
+        return try await FirebaseConstants.PostsCollection.document(postID).getDocument(as: Post.self)
+    }
     
     static  func fetchUserPosts(userUid: String) async throws -> [Post] {
         let snapshot = try await postsCollection.whereField("ownerUid", isEqualTo: userUid).getDocuments()

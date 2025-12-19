@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MainTabView: View {
     @State var selectedTab: Int = 0
-    let currentuser:User
     var body: some View {
         TabView(selection: $selectedTab){
             FeedView()
@@ -34,14 +33,14 @@ struct MainTabView: View {
                 .tabItem {
                     Image(systemName: "plus.square")
                 }.tag(2)
-            Text("Profile")
+            NotificationView()
                 .onAppear {
                     selectedTab = 3
                 }
                 .tabItem {
                     Image(systemName: "heart")
                 }.tag(3)
-            CurrentProfileView(user: currentuser)
+            CurrentProfileView()
                 .onAppear {
                     selectedTab = 4
                 }
@@ -54,5 +53,5 @@ struct MainTabView: View {
 }
 
 #Preview {
-    MainTabView( currentuser: User.Mock_Users[0])
+    MainTabView()
 }

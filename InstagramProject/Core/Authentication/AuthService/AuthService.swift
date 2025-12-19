@@ -17,15 +17,29 @@ class AuthService:ObservableObject{
     }
     
     func login(with email:String , password:String)async throws -> String{
-        let result = try await Auth.auth().signIn(withEmail: email, password:password)
-        return result.user.uid
+        do{
+            let result = try await Auth.auth().signIn(withEmail: email, password:password)
+            return result.user.uid
+        }catch{
+            throw error
+        }
         
     }
     
-    func CreateUser(with email:String, password:String , username:String)async throws -> User{
+    func CreateUser(with email:String, password:String , username:String)async throws -> String{
         do{
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            return User(id: result.user.uid, username: username, email: email)
+            let uid = result.user.uid
+            let user = User(
+                     id: uid,
+                     username: username,
+                     email: email
+                 )
+
+                 let data = try Firestore.Encoder().encode(user)
+                 try await Firestore.firestore().collection("users").document(uid).setData(data)
+
+                 return uid
         }catch{
             throw error
         }
@@ -35,9 +49,7 @@ class AuthService:ObservableObject{
         return Auth.auth().currentUser?.uid
     }
     
-    func loadUserData()async throws{
-        try await UserService.shared.fetchCurrentUser()
-    }
+ 
     
     
     func logout(){
@@ -46,10 +58,4 @@ class AuthService:ObservableObject{
     }
     
     
-    func uploaddata(with uuid:String , username:String , email:String)async{
-        let result = User(id: uuid, username: username, email: email)
-        UserService.shared.currentUser = result
-        guard  let encodeduser = try? Firestore.Encoder().encode(result)else{return}
-        try? await FirebaseConstants.UsersCollection.document(result.id).setData(encodeduser)
-    }
 }

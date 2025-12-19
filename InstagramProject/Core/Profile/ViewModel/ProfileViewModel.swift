@@ -28,9 +28,13 @@ extension ProfileViewModel{
             try await UserService.follow(with: user.id)
         }
         user.isfollowed = true
+        NotificationManager.shared.uploadFollowNotification(toUid: user.id)
     }
     
     func unfollow (){
+        Task{
+            try await UserService.unfollow(with: user.id)
+        }
         user.isfollowed = false
     }
     

@@ -6,19 +6,16 @@
 //
 
 import SwiftUI
-
+import Kingfisher
 struct CommentsCell: View {
     let comment:CommentsModel
-    var user:User{
-        return User.Mock_Users[0]
-    }
     var body: some View {
         HStack{
-            CircularProfileView(user: user, size: .xSmall)
+            CircularProfileView(user: comment.user, size: .xSmall)
             VStack(alignment:.leading,spacing: 4){
                 HStack(spacing:2){
-                    Text(user.username)
-                        .fontWeight(.bold)
+                    Text(comment.user?.username ??  "")
+                        .fontWeight(.bold) + Text(" ")
                     Text(comment.timestamp.timestampString())
                         .foregroundStyle(.gray)
                 }

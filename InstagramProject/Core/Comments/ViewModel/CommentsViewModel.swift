@@ -27,8 +27,10 @@ class CommentsViewModel:ObservableObject{
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let comment = CommentsModel(postId: post.id, commentOwnerUid: uid, timestamp: Timestamp(), commentText: commentText, postOwnerUid: post.ownerUid)
         self.comments.insert(comment, at: 0)
-        self.comments[0].user = UserService.shared.currentUser
         try await service.uploadComment(comment)
+        try await fetchComments()
+        
+        NotificationManager.shared.uploadcommentNotification(toUid: post.ownerUid, post: post)
     }
     func fetchComments()async throws{
         do{

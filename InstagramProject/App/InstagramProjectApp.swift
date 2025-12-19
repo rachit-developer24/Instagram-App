@@ -12,6 +12,7 @@ import Firebase
 @main
 struct InstagramProjectApp: App {
     @StateObject var ViewModel = AuthManager(service: AuthService())
+    @StateObject var userManager = UserManager(Service: UserService())
     init(){
         FirebaseApp.configure()
     }
@@ -20,6 +21,7 @@ struct InstagramProjectApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(ViewModel)
+                .environmentObject(userManager)
         }
     }
 }

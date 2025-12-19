@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct NotificationView: View {
+    @StateObject  var ViewModel = NotificationViewModel(service: NotificationService())
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack{
+            ScrollView{
+                LazyVStack(spacing:24){
+                    ForEach(ViewModel.notifications){ Notification in
+                        
+                        NotificationCell(notification: Notification)
+                            .padding(.top)
+                    }
+                }
+            }
+            .navigationTitle("Notifications")
+            .navigationBarTitleDisplayMode(.inline)
+            .task {
+                print("Notifications .task fired")
+                await ViewModel.fetchNotification()
+            }
+        }
+       
     }
 }
 

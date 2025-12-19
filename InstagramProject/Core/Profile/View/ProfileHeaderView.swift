@@ -18,9 +18,11 @@ struct ProfileHeaderView: View {
     private var stats:UserStats{
         return user.stats ?? .init(followingCount: 0, followerCount: 0, postsCount: 0)
     }
-    private var buttontitle:String{
-        return isfollowed ? "following" : "follow"
+    private var buttontitle: String {
+        if user.currentuser { return "Edit profile" }
+        return isfollowed ? "Following" : "Follow"
     }
+
     private var buttonForegroundColor:Color{
         if user.currentuser || isfollowed {
             return .black
