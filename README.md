@@ -120,6 +120,7 @@ If you’re reviewing this as part of a hiring process and would like to discuss
 <img width="1470" height="956" alt="Screenshot 2025-12-10 at 01 16 53" src="https://github.com/user-attachments/assets/456d2b64-c0f3-4b1c-9930-f7647e6b242f" />
 <img width="1470" height="956" alt="Screenshot 2025-12-10 at 01 17 00" src="https://github.com/user-attachments/assets/bf727669-9e7b-4c33-9998-49f073696bef" />
 <img width="1470" height="956" alt="Screenshot 2025-12-10 at 01 17 14" src="https://github.com/user-attachments/assets/736ba566-eb18-4b81-a92e-e2eb43a306c8" />
+<img width="1191" height="954" alt="Screenshot 2025-12-19 at 03 14 10" src="https://github.com/user-attachments/assets/569a6922-e871-429d-8592-124d54b2555b" />
 <img width="1109" height="919" alt="Screenshot 2025-12-19 at 02 35 15" src="https://github.com/user-attachments/assets/c619e881-372a-470e-8021-a9a3fc445a26" />
 
 
