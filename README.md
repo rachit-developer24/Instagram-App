@@ -31,13 +31,13 @@ This project is designed to demonstrate how I structure and ship a real-world iO
 - Followers / Following lists with navigation from profile stats
 - Human-readable timestamps for posts, comments, and notifications  
   (e.g. **2m, 3h, 1d** via a reusable `Timestamp` extension)
-- **Notifications feed (Like / Comment)**
+- **Notifications feed (Like / Comment / Follow)**
   - Stored per receiver in Firestore: `notifications/{uid}/user-notifications`
   - Notifications hydrate with sender user + (optional) related post for UI rendering
-  - timestamp ()
+  - timestamp 
 - Basic error handling & simple empty states
 
-
+**Planned / next steps:** search improvements, saved posts, stories, push notifications, pagination, and stronger error handling.
 
 ---
 
@@ -100,6 +100,8 @@ On fetch, notifications are **hydrated** with:
 5. Build & run on a simulator or device.
 
 If you’re reviewing this as part of a hiring process and would like to discuss the code or architecture decisions, I’m happy to walk through the project.
+
+
 
 
 🖼️ Screenshots
