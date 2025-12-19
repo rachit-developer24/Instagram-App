@@ -1,8 +1,8 @@
 # InstaClone – SwiftUI + Firebase
 
-Instagram-style iOS app built with **SwiftUI** and **Firebase**, focusing on clean architecture, modern async patterns, and production-style social features.
+Instagram-style iOS app built with **SwiftUI** and **Firebase**, focused on clean architecture, modern concurrency, and production-style social features.
 
-This project is designed to show how I structure and ship a real-world iOS app using SwiftUI, MVVM, and Firebase (Auth, Firestore, Storage).
+This project is designed to demonstrate how I structure and ship a real-world iOS app using **SwiftUI**, **MVVM**, and a dedicated **service layer**.
 
 ---
 
@@ -10,30 +10,34 @@ This project is designed to show how I structure and ship a real-world iOS app u
 
 - Modern **SwiftUI + async/await**
 - **MVVM** with a dedicated service layer (no Massive Views)
-- **AuthManager** as an @EnvironmentObject
+- **AuthManager** as an `@EnvironmentObject`
 - Full **Firebase** integration:
   - Authentication (Email/Password)
-  - Firestore (users, posts, likes, comments, followers/following)
+  - Firestore (users, posts, likes, comments, followers/following, notifications)
   - Storage (image uploads)
-- Real social app features: feed, profile, posts, likes, comments, follow system, timestamps
+- Real social app features: feed, profile, posts, likes, comments, follow system, **notifications**, timestamps
 
 ---
 
 ## ✨ Features
 
-- Email/password sign up & login (Firebase Auth)
-- Create posts via `PhotosPicker` with JPEG compression and upload to Firebase Storage
+- Email/password sign up & login (**Firebase Auth**)
+- Create posts via `PhotosPicker` with JPEG compression and upload to **Firebase Storage**
 - Feed screen + profile grid
 - Like / Unlike posts with live like counts
 - Edit profile (avatar, name, bio)
-- **Per-post comments** stored in a `post-comments` Firestore subcollection
-- **Follow / Unfollow** with state-driven UI updates (Follow ↔ Following)
-- **Followers / Following lists** with navigation from profile stats
-- **Human-readable timestamps** for posts and comments  
-  (e.g. `2m`, `3h`, `1d` via a reusable `Timestamp` extension)
+- Per-post comments stored in a `post-comments` Firestore subcollection
+- Follow / Unfollow with state-driven UI updates (**Follow ↔ Following**)
+- Followers / Following lists with navigation from profile stats
+- Human-readable timestamps for posts, comments, and notifications  
+  (e.g. **2m, 3h, 1d** via a reusable `Timestamp` extension)
+- **Notifications feed (Like / Comment / Follow)**
+  - Stored per receiver in Firestore: `notifications/{uid}/user-notifications`
+  - Notifications hydrate with sender user + (optional) related post for UI rendering
+  - timestamp 
 - Basic error handling & simple empty states
 
-Planned / next steps: search improvements, saved posts, stories, push notifications, pagination, and stronger error handling.
+**Planned / next steps:** search improvements, saved posts, stories, push notifications, pagination, and stronger error handling.
 
 ---
 
@@ -44,40 +48,61 @@ Planned / next steps: search improvements, saved posts, stories, push notificati
 - **Architecture:** MVVM + service layer  
 - **Async:** async/await  
 - **State:** `ObservableObject`, `@Published`, `@EnvironmentObject`  
-- **Backend:** Firebase (Auth, Firestore, Storage)
+- **Backend:** Firebase (**Auth**, **Firestore**, **Storage**)
 
-**Core pieces:**
+### Core pieces
 
-- `AuthManager` (`@EnvironmentObject`)  
-  - Manages `userSession` (uid) and `currentUser`
-  - Exposed to the view hierarchy for navigation and auth state
+#### AuthManager (`@EnvironmentObject`)
+- Manages `userSession` (uid) and `currentUser`
+- Exposed to the view hierarchy for navigation and auth state
 
-- Services (Firebase-facing)
-  - `AuthService` – login, register, session
-  - `UserService` – user profiles + follow system + stats (followers/following/posts)
-  - `PostService` – create/fetch posts, likes
-  - `CommentsService` – upload & fetch comments per post
+#### Services (Firebase-facing)
+- `AuthService` – login, register, session
+- `UserService` – user profiles + follow system + stats (followers/following/posts)
+- `PostService` – create/fetch posts, likes
+- `CommentsService` – upload & fetch comments per post
+- `NotificationService` – upload & fetch notifications (like/comment/follow), per-user inbox
 
-- ViewModels
-  - One view model per feature/screen
-  - Owns `@Published` state and user intents  
-    (e.g. `likePost()`, `uploadComment()`, `follow()`, `unfollow()`, `loadComments()`)
+#### ViewModels
+- One view model per feature/screen
+- Owns `@Published` state and user intents  
+  (e.g. `likePost()`, `uploadComment()`, `follow()`, `unfollow()`, `loadComments()`, `fetchNotifications()`)
+
+---
+
+## 🔔 Notifications (How it works)
+
+Notifications are written to the **receiver’s** inbox in Firestore:
+
+- **Path:** `notifications/{receiverUid}/user-notifications/{notificationId}`
+- **Types:** `like`, `comment`, `follow`
+- **Payload includes:**
+  - `notificationSenderUid`
+  - `type`
+  - `timestamp`
+  - optional `postId` (for like/comment)
+
+On fetch, notifications are **hydrated** with:
+- sender `User` (for avatar + username)
+- related `Post` (for preview image) when applicable
 
 ---
 
 ## ⚙️ Running the App
 
 1. Clone the repo and open in **Xcode 15+** (iOS 17+ recommended).
-2. Create a **Firebase** project:
-   - Enable Authentication (Email/Password)
-   - Enable Firestore
-   - Enable Storage
+2. Create a Firebase project:
+   - Enable **Authentication** (Email/Password)
+   - Enable **Firestore**
+   - Enable **Storage**
 3. Download `GoogleService-Info.plist` and add it to the app target.
 4. Update the bundle identifier if needed.
 5. Build & run on a simulator or device.
 
-
 If you’re reviewing this as part of a hiring process and would like to discuss the code or architecture decisions, I’m happy to walk through the project.
+
+
+
 
 🖼️ Screenshots
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 26 03" src="https://github.com/user-attachments/assets/f43d92e4-2d75-45b4-b5e2-c30d58f2c7e8" />
@@ -95,6 +120,9 @@ If you’re reviewing this as part of a hiring process and would like to discuss
 <img width="1470" height="956" alt="Screenshot 2025-12-10 at 01 16 53" src="https://github.com/user-attachments/assets/456d2b64-c0f3-4b1c-9930-f7647e6b242f" />
 <img width="1470" height="956" alt="Screenshot 2025-12-10 at 01 17 00" src="https://github.com/user-attachments/assets/bf727669-9e7b-4c33-9998-49f073696bef" />
 <img width="1470" height="956" alt="Screenshot 2025-12-10 at 01 17 14" src="https://github.com/user-attachments/assets/736ba566-eb18-4b81-a92e-e2eb43a306c8" />
+<img width="1191" height="954" alt="Screenshot 2025-12-19 at 03 14 10" src="https://github.com/user-attachments/assets/569a6922-e871-429d-8592-124d54b2555b" />
+<img width="1109" height="919" alt="Screenshot 2025-12-19 at 02 35 15" src="https://github.com/user-attachments/assets/c619e881-372a-470e-8021-a9a3fc445a26" />
+
 
 
 
