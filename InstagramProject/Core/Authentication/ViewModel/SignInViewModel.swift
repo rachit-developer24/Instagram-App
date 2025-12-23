@@ -8,13 +8,13 @@
 import Foundation
 @MainActor
 class SignInViewModel: ObservableObject {
-    @Published var username: String = ""
+    @Published var email: String = ""
     @Published var password: String = ""
     @Published var error:Error?
     
     func signIn(with authManager:AuthManager) async throws {
         do{
-            try await authManager.login(with: username, password: password)
+            try await authManager.login(with: email, password: password)
         }catch{
             self.error = error
         }

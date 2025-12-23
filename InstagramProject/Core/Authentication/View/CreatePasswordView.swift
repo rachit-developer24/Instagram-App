@@ -20,17 +20,18 @@ struct CreatePasswordView: View {
                                     .foregroundStyle(.gray)
                             }
                             TextFieldComponent(text: $ViewModel.password, placeholder: "Password")
-                            NavigationLink(destination: {
+                            NavigationLink {
                                 CompleteSignUpView()
                                     .navigationBarBackButtonHidden(true)
-                            }, label: {
+                            } label: {
                                 Text("Next")
                                     .foregroundStyle(.white)
                                     .fontWeight(.bold)
                                     .frame(width: 360, height: 55)
                                     .background(Color.blue)
                                     .clipShape(.rect(cornerRadius: 12))
-                            })
+                            }.disabled(!isPasswordValid)
+                                .opacity(isPasswordValid ? 1 : 0.5)
                                 .toolbar{
                                 ToolbarItem(placement: .topBarLeading) {
                             Button(action: {
@@ -46,7 +47,11 @@ struct CreatePasswordView: View {
                         Spacer()
                     }
                 }
-
+extension CreatePasswordView{
+    var isPasswordValid:Bool{
+        return   ViewModel.password.isValidPassword()
+    }
+}
     
 
 #Preview {

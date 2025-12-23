@@ -21,17 +21,19 @@ struct AddEmailView: View {
                     .foregroundStyle(.gray)
             }
             TextFieldComponent(text:$ViewModel.email, placeholder: "Enter your email")
-            NavigationLink(destination: {
+            NavigationLink {
                 AddUserName()
                     .navigationBarBackButtonHidden(true)
-            }, label: {
+            } label: {
                 Text("Next")
                     .foregroundStyle(.white)
                     .fontWeight(.bold)
                     .frame(width: 360, height: 55)
                     .background(Color.blue)
                     .clipShape(.rect(cornerRadius: 12))
-            })
+            }
+            .disabled(!emailisValid)
+            .opacity(emailisValid ? 1 : 0.5)
          
               .toolbar{
                 ToolbarItem(placement: .topBarLeading) {
@@ -48,6 +50,12 @@ struct AddEmailView: View {
         Spacer()
     }
 }
+extension AddEmailView{
+    var emailisValid:Bool{
+        return ViewModel.email.isValidEmail()
+    }
+}
+
 
 #Preview {
     AddEmailView()

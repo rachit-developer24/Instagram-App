@@ -20,17 +20,20 @@ struct AddUserName: View {
                             .foregroundStyle(.gray)
                     }
                     TextFieldComponent(text: $ViewModel.username, placeholder: "UserName")
-                    NavigationLink(destination: {
+                    NavigationLink {
                         CreatePasswordView()
                             .navigationBarBackButtonHidden(true)
-                    }, label: {
+                    }label: {
                         Text("Next")
                             .foregroundStyle(.white)
                             .fontWeight(.bold)
                             .frame(width: 360, height: 55)
                             .background(Color.blue)
                             .clipShape(.rect(cornerRadius: 12))
-                    })
+                    }
+                    .disabled(!UserNameisValid)
+                    .opacity(UserNameisValid ? 1 : 0.5)
+                    
                         .toolbar{
                         ToolbarItem(placement: .topBarLeading) {
                     Button(action: {
@@ -46,6 +49,11 @@ struct AddUserName: View {
                 Spacer()
             }
         }
+private extension AddUserName{
+    var UserNameisValid: Bool{
+        return ViewModel.username.isValidUsername()
+    }
+}
 #Preview {
     AddUserName()
         .environmentObject(RegistrationViewModel())

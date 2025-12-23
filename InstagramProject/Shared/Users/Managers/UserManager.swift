@@ -12,7 +12,7 @@ class UserManager:ObservableObject {
     private let service:UserService
     
     init(Service:UserService){
-        self.service=Service
+        self.service = Service
     }
     
     func fetchCurrentUser()async {

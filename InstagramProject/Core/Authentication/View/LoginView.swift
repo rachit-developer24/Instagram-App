@@ -23,7 +23,9 @@ struct LoginView: View {
                         .frame(width: 250, height: 120)
                     
                     VStack(spacing:15){
-                        TextFieldComponent(text: $LoginViewModel.username, placeholder: "Enter Your Email")
+                        TextFieldComponent(text: $LoginViewModel.email, placeholder: "Enter Your Email")
+                            .textInputAutocapitalization(.never)
+                            .keyboardType(.emailAddress)
                         TextFieldComponent(text: $LoginViewModel.password, placeholder: "Enter your password", secureField: true)
                         
                     }
@@ -53,6 +55,8 @@ struct LoginView: View {
                             .background(Color.blue)
                             .clipShape(.rect(cornerRadius: 12))
                     }
+                    .disabled(!formisValid)
+                    .opacity(formisValid ? 1: 0.5)
                     .padding()
                     
                     HStack{
@@ -98,6 +102,11 @@ struct LoginView: View {
           
             
         }
+    }
+}
+extension LoginView{
+    var formisValid:Bool{
+        return LoginViewModel.email.isValidEmail() &&  LoginViewModel.password.isValidPassword()
     }
 }
 
