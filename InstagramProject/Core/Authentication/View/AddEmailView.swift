@@ -11,6 +11,7 @@ struct AddEmailView: View {
     @EnvironmentObject var ViewModel:RegistrationViewModel
     @Environment(\.dismiss) var dismiss
     @State var email: String = ""
+    @EnvironmentObject var router:AuthenticationRouter
     var body: some View {
         VStack(spacing: 30){
             VStack(spacing:10){
@@ -21,9 +22,8 @@ struct AddEmailView: View {
                     .foregroundStyle(.gray)
             }
             TextFieldComponent(text:$ViewModel.email, placeholder: "Enter your email")
-            NavigationLink {
-                AddUserName()
-                    .navigationBarBackButtonHidden(true)
+            Button {
+                router.navigate()
             } label: {
                 Text("Next")
                     .foregroundStyle(.white)
@@ -34,6 +34,8 @@ struct AddEmailView: View {
             }
             .disabled(!emailisValid)
             .opacity(emailisValid ? 1 : 0.5)
+
+        
          
               .toolbar{
                 ToolbarItem(placement: .topBarLeading) {

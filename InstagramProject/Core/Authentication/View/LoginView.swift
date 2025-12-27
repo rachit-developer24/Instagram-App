@@ -10,9 +10,10 @@ import SwiftUI
 struct LoginView: View {
     @EnvironmentObject var authManager:AuthManager
     @StateObject var LoginViewModel = SignInViewModel()
+    @StateObject var router = AuthenticationRouter()
     var body: some View {
         
-        NavigationStack{
+        NavigationStack(path: $router.navigationPath){
             Spacer()
             VStack{
                 
@@ -78,29 +79,40 @@ struct LoginView: View {
                             .fontWeight(.bold)
                             .foregroundStyle(Color.blue)
                     }
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+                         
                 }
             }
             Spacer()
             Divider()
                 .padding()
-            NavigationLink {
-                AddEmailView()
-                    .navigationBarBackButtonHidden(true)
+            Button {
+                router.startRegistration()
             } label: {
                 Text("Don't have an account? Sign Up")
                     .foregroundStyle(Color.blue)
                     .fontWeight(.semibold)
             }
-          
             
+                .navigationDestination(for: RegistrationSteps.self) { step in
+                    Group{
+                    switch step {
+                    case .email:
+                        AddEmailView()
+                    case .username:
+                        AddUserName()
+                    case .password:
+                        CreatePasswordView()
+                    case .completion:
+                        CompleteSignUpView()
+                    }
+                }
+                    .environmentObject(router)
+                    .navigationBarBackButtonHidden(true)
+
+            }
+            
+
+          
         }
     }
 }

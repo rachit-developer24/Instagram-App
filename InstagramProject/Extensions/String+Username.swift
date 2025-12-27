@@ -6,11 +6,10 @@
 //
 
 import Foundation
-extension String{
-    func isValidUsername() -> Bool {
-        let usernameRegex = #"^(?=.{3,30}$)(?!.*[._]{2})[a-z0-9](?:[a-z0-9._]*[a-z0-9])$"#
-        let userpredicate = NSPredicate(format: "SELF MATCHES %@", usernameRegex)
-        return userpredicate.evaluate(with:self)
 
+extension String {
+    func isValidUsername() -> Bool {
+        let usernameRegex = #"^(?=.{6,30}$)(?!.*[._]{2})[A-Za-z0-9](?:[A-Za-z0-9._]*[A-Za-z0-9])$"#
+        return NSPredicate(format: "SELF MATCHES %@", usernameRegex).evaluate(with: self)
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CompleteSignUpView: View {
+       @EnvironmentObject var router:AuthenticationRouter
     @EnvironmentObject var AuthManager:AuthManager
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var ViewModel:RegistrationViewModel
@@ -44,6 +45,7 @@ struct CompleteSignUpView: View {
             .toolbar{
             ToolbarItem(placement: .topBarLeading) {
         Button(action: {
+            dismiss()
                     }, label: {
             Image(systemName: "chevron.left")
         })

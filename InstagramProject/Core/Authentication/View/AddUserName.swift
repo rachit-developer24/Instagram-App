@@ -10,6 +10,7 @@ import SwiftUI
 struct AddUserName: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var ViewModel:RegistrationViewModel
+    @EnvironmentObject var router:AuthenticationRouter
     var body: some View {
                 VStack(spacing: 30){
                     VStack(spacing:10){
@@ -20,10 +21,9 @@ struct AddUserName: View {
                             .foregroundStyle(.gray)
                     }
                     TextFieldComponent(text: $ViewModel.username, placeholder: "UserName")
-                    NavigationLink {
-                        CreatePasswordView()
-                            .navigationBarBackButtonHidden(true)
-                    }label: {
+                    Button {
+                        router.navigate()
+                    } label: {
                         Text("Next")
                             .foregroundStyle(.white)
                             .fontWeight(.bold)
@@ -32,7 +32,10 @@ struct AddUserName: View {
                             .clipShape(.rect(cornerRadius: 12))
                     }
                     .disabled(!UserNameisValid)
-                    .opacity(UserNameisValid ? 1 : 0.5)
+                        .opacity(UserNameisValid ? 1 : 0.5)
+
+                 
+                   
                     
                         .toolbar{
                         ToolbarItem(placement: .topBarLeading) {

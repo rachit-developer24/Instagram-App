@@ -10,6 +10,7 @@ import SwiftUI
 struct CreatePasswordView: View {
     @EnvironmentObject var ViewModel:RegistrationViewModel
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var router:AuthenticationRouter
     var body: some View {
                         VStack(spacing: 30){
                             VStack(spacing:10){
@@ -20,9 +21,8 @@ struct CreatePasswordView: View {
                                     .foregroundStyle(.gray)
                             }
                             TextFieldComponent(text: $ViewModel.password, placeholder: "Password")
-                            NavigationLink {
-                                CompleteSignUpView()
-                                    .navigationBarBackButtonHidden(true)
+                            Button {
+                                router.navigate()
                             } label: {
                                 Text("Next")
                                     .foregroundStyle(.white)
@@ -32,6 +32,8 @@ struct CreatePasswordView: View {
                                     .clipShape(.rect(cornerRadius: 12))
                             }.disabled(!isPasswordValid)
                                 .opacity(isPasswordValid ? 1 : 0.5)
+
+                          
                                 .toolbar{
                                 ToolbarItem(placement: .topBarLeading) {
                             Button(action: {
