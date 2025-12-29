@@ -106,9 +106,12 @@ If you’re reviewing this as part of a hiring process and would like to discuss
 
 🖼️ Screenshots
 <img width="980" height="810" alt="Screenshot 2025-12-29 at 01 29 09" src="https://github.com/user-attachments/assets/88f4e441-be60-4fc8-9076-74b89be5c7d7" />
-<img width="1470" height="956" alt="Screenshot 2025-12-29 at 01 30 22" src="https://github.com/user-attachments/assets/c92c40c4-fd35-4c51-b3c4-fdbe845176d6" />
+<img width="1470" height="956" alt="Screenshot 2025-12-29 at 01 54 11" src="https://github.com/user-attachments/assets/3c339856-333e-4bbf-89c6-82328fc3ad81" />
+<img width="1037" height="870" alt="Screenshot 2025-12-29 at 01 52 49" src="https://github.com/user-attachments/assets/e3d4c6e5-8f2f-41f0-973c-296dde5c3064" />
 <img width="1067" height="894" alt="Screenshot 2025-12-29 at 01 46 56" src="https://github.com/user-attachments/assets/8abcd707-bf05-4d59-a1f3-9bcb374344d5" />
 <img width="1004" height="903" alt="Screenshot 2025-12-29 at 01 47 51" src="https://github.com/user-attachments/assets/70e96cad-7e46-4128-b12f-699dcaef011f" />
+<img width="937" height="873" alt="Screenshot 2025-12-29 at 01 57 10" src="https://github.com/user-attachments/assets/e19d8161-4123-4658-a470-c18a51a41acb" />
+
 <img width="1470" height="956" alt="Screenshot 2025-12-29 at 01 49 46" src="https://github.com/user-attachments/assets/5d8eb38d-0ab5-447e-a549-31bfadc1dbe5" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 14 27" src="https://github.com/user-attachments/assets/de98d2f1-1be3-43a6-a4f2-f18a31722f61" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 34 36" src="https://github.com/user-attachments/assets/a20b29f3-ab51-49c2-8f37-d2bd4e50ff89" />
