@@ -105,10 +105,11 @@ If you’re reviewing this as part of a hiring process and would like to discuss
 
 
 🖼️ Screenshots
-<img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 26 03" src="https://github.com/user-attachments/assets/f43d92e4-2d75-45b4-b5e2-c30d58f2c7e8" />
-<img width="1470" height="956" alt="Screenshot 2025-11-03 at 23 47 41" src="https://github.com/user-attachments/assets/a68137c8-780e-4236-b083-c6f85f71db9c" />
-<img width="1470" height="956" alt="Screenshot 2025-11-03 at 23 48 45" src="https://github.com/user-attachments/assets/8e070eec-a2ec-429b-a332-373849910a35" />
-<img width="1470" height="956" alt="Screenshot 2025-11-03 at 23 49 20" src="https://github.com/user-attachments/assets/23740163-6cd7-454b-b20c-fc63a0799b35" />
+<img width="980" height="810" alt="Screenshot 2025-12-29 at 01 29 09" src="https://github.com/user-attachments/assets/88f4e441-be60-4fc8-9076-74b89be5c7d7" />
+<img width="1470" height="956" alt="Screenshot 2025-12-29 at 01 30 22" src="https://github.com/user-attachments/assets/c92c40c4-fd35-4c51-b3c4-fdbe845176d6" />
+<img width="1067" height="894" alt="Screenshot 2025-12-29 at 01 46 56" src="https://github.com/user-attachments/assets/8abcd707-bf05-4d59-a1f3-9bcb374344d5" />
+<img width="1004" height="903" alt="Screenshot 2025-12-29 at 01 47 51" src="https://github.com/user-attachments/assets/70e96cad-7e46-4128-b12f-699dcaef011f" />
+<img width="1470" height="956" alt="Screenshot 2025-12-29 at 01 49 46" src="https://github.com/user-attachments/assets/5d8eb38d-0ab5-447e-a549-31bfadc1dbe5" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 14 27" src="https://github.com/user-attachments/assets/de98d2f1-1be3-43a6-a4f2-f18a31722f61" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 34 36" src="https://github.com/user-attachments/assets/a20b29f3-ab51-49c2-8f37-d2bd4e50ff89" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 31 35" src="https://github.com/user-attachments/assets/d6b0761d-0901-4518-ada7-77d06fb09f23" />
