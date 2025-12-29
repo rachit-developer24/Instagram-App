@@ -106,13 +106,12 @@ If you’re reviewing this as part of a hiring process and would like to discuss
 
 🖼️ Screenshots
 <img width="980" height="810" alt="Screenshot 2025-12-29 at 01 29 09" src="https://github.com/user-attachments/assets/88f4e441-be60-4fc8-9076-74b89be5c7d7" />
-<img width="1470" height="956" alt="Screenshot 2025-12-29 at 01 54 11" src="https://github.com/user-attachments/assets/3c339856-333e-4bbf-89c6-82328fc3ad81" />
+<img width="831" height="871" alt="Screenshot 2025-12-29 at 02 00 27" src="https://github.com/user-attachments/assets/b4e81240-8ec4-4443-b862-9768e3dc5239" />
 <img width="1037" height="870" alt="Screenshot 2025-12-29 at 01 52 49" src="https://github.com/user-attachments/assets/e3d4c6e5-8f2f-41f0-973c-296dde5c3064" />
 <img width="1067" height="894" alt="Screenshot 2025-12-29 at 01 46 56" src="https://github.com/user-attachments/assets/8abcd707-bf05-4d59-a1f3-9bcb374344d5" />
 <img width="1004" height="903" alt="Screenshot 2025-12-29 at 01 47 51" src="https://github.com/user-attachments/assets/70e96cad-7e46-4128-b12f-699dcaef011f" />
+<img width="981" height="880" alt="Screenshot 2025-12-29 at 01 55 18" src="https://github.com/user-attachments/assets/66a22f7e-d0b8-4b4d-874f-9f8e0f60dc0f" />
 <img width="937" height="873" alt="Screenshot 2025-12-29 at 01 57 10" src="https://github.com/user-attachments/assets/e19d8161-4123-4658-a470-c18a51a41acb" />
-
-<img width="1470" height="956" alt="Screenshot 2025-12-29 at 01 49 46" src="https://github.com/user-attachments/assets/5d8eb38d-0ab5-447e-a549-31bfadc1dbe5" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 14 27" src="https://github.com/user-attachments/assets/de98d2f1-1be3-43a6-a4f2-f18a31722f61" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 34 36" src="https://github.com/user-attachments/assets/a20b29f3-ab51-49c2-8f37-d2bd4e50ff89" />
 <img width="1470" height="956" alt="Screenshot 2025-11-04 at 00 31 35" src="https://github.com/user-attachments/assets/d6b0761d-0901-4518-ada7-77d06fb09f23" />
