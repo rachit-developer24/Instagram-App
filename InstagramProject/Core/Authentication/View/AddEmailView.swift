@@ -23,8 +23,9 @@ struct AddEmailView: View {
                     .foregroundStyle(.gray)
             }
             TextFieldComponent(text:$ViewModel.email, placeholder: "Enter your email")
+                .textInputAutocapitalization(.never)
             Button {
-                onNext()
+                router.navigate()
             } label: {
                 Text("Next")
                     .foregroundStyle(.white)
@@ -36,8 +37,6 @@ struct AddEmailView: View {
             .disabled(!emailisValid)
             .opacity(emailisValid ? 1 : 0.5)
 
-        
-         
               .toolbar{
                 ToolbarItem(placement: .topBarLeading) {
             Button(action: {
@@ -60,7 +59,7 @@ extension AddEmailView{
     
     func onNext(){
         Task{
-            let emailisValid = try await authManager.validateUsername(with: ViewModel.email)
+            let emailisValid = try await authManager.ValidateEmail(with: email)
             
             if emailisValid{
                 router.navigate()

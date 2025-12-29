@@ -20,10 +20,11 @@ struct AddUserName: View {
                             .font(.title)
                         Text("Your account handle You can always change this later")
                             .foregroundStyle(.gray)
+                            .multilineTextAlignment(.center)
                     }
                     TextFieldComponent(text: $ViewModel.username, placeholder: "UserName")
                     Button {
-                        onNext()
+                        router.navigate()
                     } label: {
                         Text("Next")
                             .foregroundStyle(.white)
