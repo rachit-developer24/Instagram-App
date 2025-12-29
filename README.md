@@ -35,10 +35,8 @@ This project is designed to demonstrate how I structure and ship a real-world iO
   - Stored per receiver in Firestore: `notifications/{uid}/user-notifications`
   - Notifications hydrate with sender user + (optional) related post for UI rendering
   - timestamp 
-- Basic error handling & simple empty states
-
-**Planned / next steps:** search improvements, saved posts, stories, push notifications, pagination, and stronger error handling.
-
+- User-friendly authentication errors with mapped FirebaseAuth error codes
+- 
 ---
 
 ## 🧱 Tech & Architecture
