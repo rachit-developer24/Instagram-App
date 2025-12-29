@@ -51,6 +51,9 @@ struct CompleteSignUpView: View {
         })
             }
         }
+            .alert("Oops!", isPresented: $ViewModel.showError, actions: {}){
+                Text(ViewModel.error?.localizedDescription ?? "An unknown error occurred.")
+            }
 
 
                 

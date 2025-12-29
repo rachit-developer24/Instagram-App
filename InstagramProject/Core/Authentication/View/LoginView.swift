@@ -92,6 +92,9 @@ struct LoginView: View {
                     .foregroundStyle(Color.blue)
                     .fontWeight(.semibold)
             }
+            .alert("Oops!", isPresented: $LoginViewModel.showError, actions: {}){
+                Text(LoginViewModel.error?.localizedDescription ?? "An unknown error occurred.")
+            }
             
                 .navigationDestination(for: RegistrationSteps.self) { step in
                     Group{

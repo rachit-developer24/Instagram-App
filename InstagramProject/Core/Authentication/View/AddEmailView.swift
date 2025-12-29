@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddEmailView: View {
+    @EnvironmentObject var authManager:AuthManager
     @EnvironmentObject var ViewModel:RegistrationViewModel
     @Environment(\.dismiss) var dismiss
     @State var email: String = ""
@@ -23,7 +24,7 @@ struct AddEmailView: View {
             }
             TextFieldComponent(text:$ViewModel.email, placeholder: "Enter your email")
             Button {
-                router.navigate()
+                onNext()
             } label: {
                 Text("Next")
                     .foregroundStyle(.white)
@@ -55,6 +56,16 @@ struct AddEmailView: View {
 extension AddEmailView{
     var emailisValid:Bool{
         return ViewModel.email.isValidEmail()
+    }
+    
+    func onNext(){
+        Task{
+            let emailisValid = try await authManager.validateUsername(with: ViewModel.email)
+            
+            if emailisValid{
+                router.navigate()
+            }
+        }
     }
 }
 

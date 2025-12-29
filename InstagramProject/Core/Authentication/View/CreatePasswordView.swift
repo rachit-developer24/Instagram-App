@@ -53,6 +53,7 @@ extension CreatePasswordView{
     var isPasswordValid:Bool{
         return   ViewModel.password.isValidPassword()
     }
+    
 }
     
 

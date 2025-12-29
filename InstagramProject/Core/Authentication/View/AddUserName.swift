@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddUserName: View {
+    @EnvironmentObject var authManager:AuthManager
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var ViewModel:RegistrationViewModel
     @EnvironmentObject var router:AuthenticationRouter
@@ -17,12 +18,12 @@ struct AddUserName: View {
                         Text("Create Username")
                             .fontWeight(.bold)
                             .font(.title)
-                        Text("You'll use this email to sign into your account")
+                        Text("Your account handle You can always change this later")
                             .foregroundStyle(.gray)
                     }
                     TextFieldComponent(text: $ViewModel.username, placeholder: "UserName")
                     Button {
-                        router.navigate()
+                        onNext()
                     } label: {
                         Text("Next")
                             .foregroundStyle(.white)
@@ -55,6 +56,16 @@ struct AddUserName: View {
 private extension AddUserName{
     var UserNameisValid: Bool{
         return ViewModel.username.isValidUsername()
+    }
+    
+    func onNext(){
+        Task{
+            let userNameisValid = try await authManager.validateUsername(with: ViewModel.username)
+            
+            if UserNameisValid{
+                router.navigate()
+            }
+        }
     }
 }
 #Preview {

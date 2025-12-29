@@ -29,6 +29,13 @@ class AuthManager:ObservableObject{
         self.userSession = try await service.CreateUser(with: email, password: password, username: username)
         
     }
+    
+    func ValidateEmail(with email:String)async throws -> Bool{
+        return try await service.validateEmail(email)
+    }
+    func validateUsername(with username:String)async throws -> Bool{
+        return try await service.validateUserName(username)
+    }
 
     func logout(){
         service.logout()
