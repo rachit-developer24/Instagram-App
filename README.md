@@ -1,87 +1,86 @@
 InstaClone – SwiftUI + Firebase
-
 Instagram-style iOS app built with SwiftUI and Firebase, focused on clean architecture, modern concurrency, and real-world social features.
 This project demonstrates how I structure and ship a production-style iOS app using SwiftUI, MVVM, and a dedicated service layer with dependency injection.
 
 🚀 Highlights
-Modern SwiftUI with async/await
-MVVM + service layer (no Massive Views, no singletons)
-AuthManager injected via @EnvironmentObject
-Core authentication logic unit tested with XCTest using mocked services
-Full Firebase integration:
-Authentication (Email/Password)
-Firestore (users, posts, likes, comments, follow system, notifications)
-Storage (image uploads)
-Real social features: feed, posts, likes, comments, follow/unfollow, notifications, timestamps
+• Modern SwiftUI with async/await
+• MVVM + service layer (no Massive Views, no singletons)
+• AuthManager injected via @EnvironmentObject
+• Core authentication logic unit tested with XCTest using mocked services
+• Full Firebase integration
+• Real social features: feed, posts, likes, comments, follow/unfollow, notifications, timestamps
 
 ✨ Features
-Email/password sign up & login (Firebase Auth)
-Create posts via PhotosPicker with JPEG compression
-Feed screen and profile grid
-Like / Unlike posts with live count updates
-Edit profile (avatar, name, bio)
-Per-post comments stored in Firestore subcollections
-Follow / Unfollow with state-driven UI updates
-Followers / Following lists with profile navigation
-Human-readable timestamps (2m, 3h, 1d) via reusable extensions
-Notifications feed (Like / Comment / Follow)
-Stored per user in Firestore
-Hydrated with sender user and optional related post
-User-friendly authentication errors mapped from FirebaseAuth codes
+• Email/password sign up & login (Firebase Auth)
+• Create posts via PhotosPicker with JPEG compression
+• Feed screen and profile grid
+• Like / Unlike posts with live count updates
+• Edit profile (avatar, name, bio)
+• Per-post comments stored in Firestore subcollections
+• Follow / Unfollow with state-driven UI updates
+• Followers / Following lists with profile navigation
+• Human-readable timestamps (2m, 3h, 1d) via reusable extensions
+• Notifications feed (Like / Comment / Follow)
+• Stored per user in Firestore
+• Hydrated with sender user and optional related post
+• User-friendly authentication errors mapped from FirebaseAuth codes
 
 🧱 Tech & Architecture
-Language: Swift
-UI: SwiftUI
-Architecture: MVVM + service layer
-Async: async/await
-State: ObservableObject, @Published, @EnvironmentObject
-Backend: Firebase (Auth, Firestore, Storage)
+• Language: Swift
+• UI: SwiftUI
+• Architecture: MVVM + service layer
+• Async: async/await
+• State: ObservableObject, @Published, @EnvironmentObject
+• Backend: Firebase (Auth, Firestore, Storage)
 Core Components
 AuthManager (@EnvironmentObject)
-Manages authentication state (userSession, currentUser)
-Drives app navigation based on auth lifecycle
-Unit tested with mocked AuthService
+• Manages authentication state (userSession, currentUser)
+• Drives app navigation based on auth lifecycle
+• Unit tested with mocked AuthService
 Services (Firebase-facing)
-AuthService – login, register, session management
-UserService – profiles, follow system, stats
-PostService – create/fetch posts, likes
-CommentsService – upload & fetch comments per post
-NotificationService – per-user notification inbox (like/comment/follow)
+• AuthService – login, register, session management
+• UserService – user profiles, follow system, stats
+• PostService – create/fetch posts, likes
+• CommentsService – upload & fetch comments per post
+• NotificationService – per-user notification inbox (like/comment/follow)
 ViewModels
-One ViewModel per screen/feature
-Owns @Published state and user intents
-(e.g. likePost(), follow(), uploadComment(), fetchNotifications())
+• One ViewModel per screen/feature
+• Owns @Published state and user intents
+• likePost()
+• follow() / unfollow()
+• uploadComment()
+• fetchNotifications()
 
 🔔 Notifications (How It Works)
-Notifications are written to the receiver’s Firestore inbox:
-Path: notifications/{receiverUid}/user-notifications/{notificationId}
-Types: like, comment, follow
-Payload:
-sender UID
-type
-timestamp
-optional post ID
+• Notifications are written to the receiver’s Firestore inbox
+• Path: notifications/{receiverUid}/user-notifications/{notificationId}
+• Types: like, comment, follow
+Payload includes:
+• Sender UID
+• Type
+• Timestamp
+• Optional post ID
 On fetch, notifications are hydrated with:
-sender User (avatar + username)
-related Post (preview image) when applicable
+• Sender User (avatar + username)
+• Related Post (preview image), when applicable
 
 🧪 Testing
-Unit tests for AuthManager
-Dependency injection with mocked services
-Covers login, registration, validation, password reset, logout, and account deletion
-Async/await–based XCTest
+• Unit tests for AuthManager
+• Dependency injection with mocked services
+• Covers login, registration, validation, password reset, logout, and account deletion
+• Async/await–based XCTest
 
 ⚙️ Running the App
-Clone the repo and open in Xcode 15+ (iOS 17 recommended).
-Create a Firebase project:
-Enable Authentication (Email/Password)
-Enable Firestore
-Enable Storage
-Add GoogleService-Info.plist to the app target.
-Update the bundle identifier if needed.
-Build and run on simulator or device.
+• Clone the repository and open in Xcode 15+ (iOS 17 recommended)
+• Create a Firebase project
+• Enable Authentication (Email/Password)
+• Enable Firestore
+• Enable Storage
+• Add GoogleService-Info.plist to the app target
+• Update the bundle identifier if required
+• Build and run on simulator or device
 
-If you’re reviewing this as part of a hiring process and would like to discuss architecture or implementation decisions, I’m happy to walk through the project.
+If you’re reviewing this project as part of a hiring process and would like to discuss the architecture or implementation decisions, I’m happy to walk through the code.
 
 🖼️ Screenshots
 <img width="980" height="810" alt="Screenshot 2025-12-29 at 01 29 09" src="https://github.com/user-attachments/assets/88f4e441-be60-4fc8-9076-74b89be5c7d7" />
