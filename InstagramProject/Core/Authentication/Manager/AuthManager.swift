@@ -13,9 +13,9 @@ class AuthManager:ObservableObject{
     @Published var  userSession:String?
    
     
-    let service:AuthService
+    let service:AuthServiceProtocol
     
-    init(service: AuthService) {
+    init(service: AuthServiceProtocol) {
         self.service = service
         self.userSession =  service.getUserSession()
        
@@ -33,10 +33,19 @@ class AuthManager:ObservableObject{
     func ValidateEmail(with email:String)async throws -> Bool{
         return try await service.validateEmail(email)
     }
+    
     func validateUsername(with username:String)async throws -> Bool{
         return try await service.validateUserName(username)
     }
-
+    
+    func sendPasswordResetLink(toEmail email: String)async throws{
+        try await service.sendPasswordResetLink(toEmail: email)
+    }
+    
+    func deleteAccount()async throws{
+        try await service.deleteAccount()
+    }
+    
     func logout(){
         service.logout()
         userSession = nil

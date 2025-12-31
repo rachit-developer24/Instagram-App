@@ -6,3 +6,10 @@
 //
 
 import Foundation
+struct MockUserService:UserServiceProtocol {
+    func fetchCurrentUser() async throws -> User? {
+        return nil
+    }
+    
+    
+}

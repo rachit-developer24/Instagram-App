@@ -6,30 +6,112 @@
 //
 
 import XCTest
+@testable import InstagramProject
 
+@MainActor
 final class AuthManagerTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    var mockService: MockAuthService!
+    var authManager: AuthManager!
+    
+    
+    override func setUp(){
+        super.setUp()
+        mockService = MockAuthService()
+        authManager = AuthManager(service: mockService)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    override func tearDown() {
+        mockService = nil
+        authManager = nil
+        super.tearDown()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    
+    func testLoginSuccess()async throws {
+        try await authManager.login(with: "test@gmail.com", password: "qqqqqq")
+        XCTAssertNotNil(authManager.userSession)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    
+    func  testLoginFailure()async {
+        authManager.userSession = nil
+        mockService.errorToThrow = .invalidCredential
+        try? await authManager.login(with: "test@gmail.com", password: "qqqqqq")
+        
+        XCTAssertNil(authManager.userSession)
     }
+    
+    func testLoginWithInvalidEmail()async{
+        authManager.userSession = nil
+        
+        try? await authManager.login(with: "testing", password: "qqqqqq")
+        XCTAssertNil(authManager.userSession)
+    }
+    
+    func testLoginWithInvalidPassword()async{
+        authManager.userSession = nil
+        
+        try? await authManager.login(with: "testing@gmail.com", password: "qqq")
+        XCTAssertNil(authManager.userSession)
+    }
+    
+    func testCreateUserSuccess()async throws {
+       try await authManager.CreateUser(with: "testing@gmail.com", password: "qqqqqq", username: "testing")
+        XCTAssertNotNil(authManager.userSession)
+    }
+    
+    func testCreateUserFailure()async{
+        authManager.userSession = nil
+        mockService.errorToThrow = AuthenticationError.unknown
+        try? await authManager.CreateUser(with: "testing@gmail.com", password: "qqqqqq", username: "testing")
+        
+         XCTAssertNil(authManager.userSession)
+    }
+    
+    func testCreateUserWithInvalidUsername()async{
+        authManager.userSession = nil
+        try? await authManager.CreateUser(with: "testing@gmail.com", password: "qqqqqq", username: "inv")
+         XCTAssertNil(authManager.userSession)
+    }
+    
+    func testSignOut(){
+        authManager.logout()
+        XCTAssertNil(authManager.userSession)
+        XCTAssertTrue(mockService.didCallSignOut)
+    }
+    
+    func testValidateEmailSuccess()async throws{
+        let isvalid = try await authManager.ValidateEmail(with: "testing@gmail.com")
+        XCTAssertTrue(isvalid)
+    }
+    
+    func testValidateEmailFailure()async throws{
+        let isvalid = try await authManager.ValidateEmail(with: "testing@gma@com")
+        XCTAssertFalse(isvalid)
+    }
+    
+    func testValidateUsernameSuccess()async throws{
+        let isvalid = try await authManager.validateUsername(with: "testing")
+        XCTAssertTrue(isvalid)
+    }
+    
+    func testValidateUsernameFailure()async throws{
+        let isvalid = try await authManager.validateUsername(with: "te@")
+        XCTAssertFalse(isvalid)
+    }
+    
+    func testDeleteAccountSuccess()async throws{
+        try await authManager.deleteAccount()
+        XCTAssertTrue(mockService.didCallDeleteAccount)
+    }
+    
+    func testSendResetPasswordLinkSuccess()async throws{
+            try? await authManager.sendPasswordResetLink(toEmail: "testing@gmail.com")
+            XCTAssertTrue(mockService.didSendResetPassword)}
 
-}
+    
+    }
+    
+    
+

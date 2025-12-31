@@ -9,10 +9,20 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
-@MainActor
-class AuthService:ObservableObject{
-     
 
+protocol AuthServiceProtocol{
+    func login(with email:String , password:String)async throws -> String
+    func CreateUser(with email:String, password:String , username:String)async throws -> String
+    func validateEmail(_ email: String)async throws -> Bool
+    func validateUserName(_ username: String)async throws -> Bool
+    func sendPasswordResetLink(toEmail email: String)async throws
+    func deleteAccount()async throws
+    func getUserSession()-> String?
+    func logout()
+}
+
+class AuthService:ObservableObject,AuthServiceProtocol{
+  
     func login(with email:String , password:String)async throws -> String{
         do{
             let result = try await Auth.auth().signIn(withEmail: email, password:password)
@@ -51,10 +61,21 @@ class AuthService:ObservableObject{
             .getDocuments()
         return snapshot.isEmpty
     }
+    
     func validateUserName(_ username: String)async throws -> Bool {
         let snapshot = try await FirebaseConstants.UsersCollection.whereField("username", isEqualTo: username)
             .getDocuments()
         return snapshot.isEmpty
+    }
+    
+    
+    func sendPasswordResetLink(toEmail email: String)async throws{
+        
+    }
+ 
+    
+    func deleteAccount()async throws {
+        
     }
     
     
@@ -68,6 +89,7 @@ class AuthService:ObservableObject{
         try? Auth.auth().signOut()
   
     }
+    
     
     
 }

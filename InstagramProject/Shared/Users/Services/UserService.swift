@@ -10,8 +10,10 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
-
-class UserService{
+protocol UserServiceProtocol{
+    func fetchCurrentUser() async throws -> User?
+}
+class UserService:UserServiceProtocol{
 
     func fetchCurrentUser() async throws -> User?{
         guard let uid = Auth.auth().currentUser?.uid else { return nil }

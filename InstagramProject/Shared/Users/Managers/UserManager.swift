@@ -9,9 +9,9 @@ import Foundation
 @MainActor
 class UserManager:ObservableObject {
     @Published var currentUser:User?
-    private let service:UserService
+    private let service:UserServiceProtocol
     
-    init(Service:UserService){
+    init(Service:UserServiceProtocol){
         self.service = Service
     }
     
