@@ -1,6 +1,8 @@
 InstaClone – SwiftUI + Firebase
+
 Instagram-style iOS app built with SwiftUI and Firebase, focused on clean architecture, modern concurrency, and real-world social features.
 This project demonstrates how I structure and ship a production-style iOS app using SwiftUI, MVVM, and a dedicated service layer with dependency injection.
+
 
 🚀 Highlights
 • Modern SwiftUI with async/await
@@ -9,6 +11,7 @@ This project demonstrates how I structure and ship a production-style iOS app us
 • Core authentication logic unit tested with XCTest using mocked services
 • Full Firebase integration
 • Real social features: feed, posts, likes, comments, follow/unfollow, notifications, timestamps
+
 
 ✨ Features
 • Email/password sign up & login (Firebase Auth)
@@ -24,6 +27,7 @@ This project demonstrates how I structure and ship a production-style iOS app us
 • Stored per user in Firestore
 • Hydrated with sender user and optional related post
 • User-friendly authentication errors mapped from FirebaseAuth codes
+
 
 🧱 Tech & Architecture
 • Language: Swift
@@ -51,6 +55,7 @@ ViewModels
 • uploadComment()
 • fetchNotifications()
 
+
 🔔 Notifications (How It Works)
 • Notifications are written to the receiver’s Firestore inbox
 • Path: notifications/{receiverUid}/user-notifications/{notificationId}
@@ -64,11 +69,13 @@ On fetch, notifications are hydrated with:
 • Sender User (avatar + username)
 • Related Post (preview image), when applicable
 
+
 🧪 Testing
 • Unit tests for AuthManager
 • Dependency injection with mocked services
 • Covers login, registration, validation, password reset, logout, and account deletion
 • Async/await–based XCTest
+
 
 ⚙️ Running the App
 • Clone the repository and open in Xcode 15+ (iOS 17 recommended)
