@@ -30,14 +30,6 @@ class AuthManager:ObservableObject{
         
     }
     
-    func ValidateEmail(with email:String)async throws -> Bool{
-        return try await service.validateEmail(email)
-    }
-    
-    func validateUsername(with username:String)async throws -> Bool{
-        return try await service.validateUserName(username)
-    }
-    
     func sendPasswordResetLink(toEmail email: String)async throws{
         try await service.sendPasswordResetLink(toEmail: email)
     }

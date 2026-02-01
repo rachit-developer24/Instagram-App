@@ -6,15 +6,12 @@
 //
 
 import Foundation
-import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 
 protocol AuthServiceProtocol{
     func login(with email:String , password:String)async throws -> String
     func CreateUser(with email:String, password:String , username:String)async throws -> String
-    func validateEmail(_ email: String)async throws -> Bool
-    func validateUserName(_ username: String)async throws -> Bool
     func sendPasswordResetLink(toEmail email: String)async throws
     func deleteAccount()async throws
     func getUserSession()-> String?
@@ -56,17 +53,6 @@ class AuthService:ObservableObject,AuthServiceProtocol{
         }
     }
 
-    func validateEmail(_ email: String)async throws -> Bool {
-        let snapshot = try await FirebaseConstants.UsersCollection.whereField("email", isEqualTo: email)
-            .getDocuments()
-        return snapshot.isEmpty
-    }
-    
-    func validateUserName(_ username: String)async throws -> Bool {
-        let snapshot = try await FirebaseConstants.UsersCollection.whereField("username", isEqualTo: username)
-            .getDocuments()
-        return snapshot.isEmpty
-    }
     
     
     func sendPasswordResetLink(toEmail email: String)async throws{

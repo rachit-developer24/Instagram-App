@@ -44,18 +44,11 @@ struct LoginView: View {
                     .padding(.horizontal, 17)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     
-                    Button {
+                    IGButton(action: {
                         Task{
                             try await LoginViewModel.signIn(with:authManager )
                         }
-                    } label: {
-                        Text("Login")
-                            .foregroundStyle(.white)
-                            .fontWeight(.bold)
-                            .frame(width: 360, height: 55)
-                            .background(Color.blue)
-                            .clipShape(.rect(cornerRadius: 12))
-                    }
+                    }, title: "Login", isLoading: LoginViewModel.isloading)
                     .disabled(!formisValid)
                     .opacity(formisValid ? 1: 0.5)
                     .padding()

@@ -7,31 +7,28 @@
 
 import SwiftUI
 import Kingfisher
+
 struct PostGridView: View {
-    @StateObject var Viewmodel:PostGridViewModel
-    init(user:User){
-        _Viewmodel = StateObject(wrappedValue: PostGridViewModel(user: user))
+    @StateObject private var viewModel: PostGridViewModel
+
+    private let columns: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 1), count: 3)
+    private let spacing: CGFloat = 1
+
+    init(user: User) {
+        _viewModel = StateObject(wrappedValue: PostGridViewModel(user: user))
     }
-    
-    private let Griditems:[GridItem] = [
-        .init(.flexible() , spacing: 1),
-        .init(.flexible() , spacing: 1),
-        .init(.flexible() , spacing: 1)
-    ]
-    let imagedimensions:CGFloat = (UIScreen.main.bounds.width / 3) - 1
+
     var body: some View {
-        LazyVGrid(columns: Griditems, spacing: 1){
-            ForEach(Viewmodel.posts){post in
+        let size = (UIScreen.main.bounds.width - (spacing * 2)) / 3
+
+        LazyVGrid(columns: columns, spacing: spacing) {
+            ForEach(viewModel.posts) { post in
                 KFImage(URL(string: post.imageurl))
                     .resizable()
                     .scaledToFill()
-                    .frame(width: imagedimensions, height: imagedimensions)
+                    .frame(width: size, height: size)
                     .clipped()
             }
         }
     }
-}
-
-#Preview {
-    PostGridView(user: User.Mock_Users[0])
 }

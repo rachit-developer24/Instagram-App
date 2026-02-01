@@ -12,8 +12,7 @@ struct ProfileView: View {
     var body: some View {
             ScrollView{
                 ProfileHeaderView(user: user)
-                PostGridView(user: user)
-                    }
+                PostGridView(user: user)}
                     Spacer()
                 }
             }

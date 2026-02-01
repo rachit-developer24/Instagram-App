@@ -16,8 +16,21 @@ protocol UserServiceProtocol{
 class UserService:UserServiceProtocol{
 
     func fetchCurrentUser() async throws -> User?{
-        guard let uid = Auth.auth().currentUser?.uid else { return nil }
-        return try await FirebaseConstants.UsersCollection.document(uid).getDocument(as: User.self)
+        do{
+            guard let uid = Auth.auth().currentUser?.uid else {  print("no uuid")
+                return nil}
+            print("\(uid)")
+            let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument(as: User.self)
+            print("\(snapshot.email)")
+            print("\(snapshot.id)")
+            return snapshot
+        }catch{
+            print("\(error.localizedDescription)")
+            throw error
+            
+        }
+        
+        
     }
 
     static func fetchUserWithUuid(with uuid: String) async throws -> User{

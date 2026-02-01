@@ -13,9 +13,9 @@ struct CommentsCell: View {
         HStack{
             CircularProfileView(user: comment.user, size: .xSmall)
             VStack(alignment:.leading,spacing: 4){
-                HStack(spacing:2){
-                    Text(comment.user?.username ??  "")
-                        .fontWeight(.bold) + Text(" ")
+                HStack(spacing: 2){
+                    Text("\(comment.user?.username ?? "") ")
+                        .fontWeight(.bold)
                     Text(comment.timestamp.timestampString())
                         .foregroundStyle(.gray)
                 }

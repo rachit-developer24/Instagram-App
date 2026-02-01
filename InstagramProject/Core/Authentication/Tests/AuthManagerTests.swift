@@ -81,26 +81,6 @@ final class AuthManagerTests: XCTestCase {
         XCTAssertTrue(mockService.didCallSignOut)
     }
     
-    func testValidateEmailSuccess()async throws{
-        let isvalid = try await authManager.ValidateEmail(with: "testing@gmail.com")
-        XCTAssertTrue(isvalid)
-    }
-    
-    func testValidateEmailFailure()async throws{
-        let isvalid = try await authManager.ValidateEmail(with: "testing@gma@com")
-        XCTAssertFalse(isvalid)
-    }
-    
-    func testValidateUsernameSuccess()async throws{
-        let isvalid = try await authManager.validateUsername(with: "testing")
-        XCTAssertTrue(isvalid)
-    }
-    
-    func testValidateUsernameFailure()async throws{
-        let isvalid = try await authManager.validateUsername(with: "te@")
-        XCTAssertFalse(isvalid)
-    }
-    
     func testDeleteAccountSuccess()async throws{
         try await authManager.deleteAccount()
         XCTAssertTrue(mockService.didCallDeleteAccount)

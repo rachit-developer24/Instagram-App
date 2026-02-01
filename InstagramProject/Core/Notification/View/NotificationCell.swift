@@ -13,16 +13,13 @@ struct NotificationCell: View {
     var body: some View {
         HStack{
             CircularProfileView(user: notification.user, size: .xSmall)
-            HStack{
-                Text("\(notification.user?.username ?? "")")
-                    .font(.subheadline)
-                    .fontWeight(.semibold) +
-                Text("  \( notification.type.notifiacationmessage )")
-                    .font(.subheadline) +
-                Text("\( notification.timestamp.timestampString() )")
-                    .foregroundStyle(.gray)
-                    .font(.footnote)
-            }
+            Text("\(notification.user?.username ?? "")  \(notification.type.notifiacationmessage) \(notification.timestamp.timestampString())")
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundStyle(.primary)
+                .lineLimit(2)
+                .truncationMode(.tail)
+                .environment(\.font, .subheadline)
             Spacer()
             if notification.type != .follow{
                 KFImage(URL(string: notification.post?.imageurl ?? ""))
@@ -53,3 +50,4 @@ struct NotificationCell: View {
 #Preview {
     NotificationCell(notification: DeveloperPreview.shared.notifications[0])
 }
+

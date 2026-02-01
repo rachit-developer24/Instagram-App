@@ -22,10 +22,12 @@ struct AddEmailView: View {
                 Text("You'll use this email to sign into your account")
                     .foregroundStyle(.gray)
             }
-            TextFieldComponent(text:$ViewModel.email, placeholder: "Enter your email")
+            IGInputField(text: $ViewModel.email, error: $ViewModel.registrationError, isloading:ViewModel.isValidating , placeholder: "Enter Your Email...", securefield: false)
                 .textInputAutocapitalization(.never)
             Button {
-                router.navigate()
+                Task{
+                    await onNext()
+                }
             } label: {
                 Text("Next")
                     .foregroundStyle(.white)
@@ -57,13 +59,11 @@ extension AddEmailView{
         return ViewModel.email.isValidEmail()
     }
     
-    func onNext(){
-        Task{
-            let emailisValid = try await authManager.ValidateEmail(with: email)
-            
-            if emailisValid{
-                router.navigate()
-            }
+    func onNext()async{
+        let emailisValid =  await ViewModel.validateEmail()
+        
+        if emailisValid{
+            router.navigate()
         }
     }
 }
@@ -71,5 +71,4 @@ extension AddEmailView{
 
 #Preview {
     AddEmailView()
-        .environmentObject(RegistrationViewModel())
 }

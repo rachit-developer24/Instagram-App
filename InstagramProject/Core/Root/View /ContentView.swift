@@ -11,7 +11,7 @@ import Firebase
 struct ContentView: View {
     @EnvironmentObject var authManager:AuthManager
     @EnvironmentObject var userManager:UserManager
-    @StateObject var registrationViewModel = RegistrationViewModel()
+    @StateObject var registrationViewModel = RegistrationViewModel(service: RegistrationValidationService())
     var body: some View {
         VStack{
             if authManager.userSession == nil{

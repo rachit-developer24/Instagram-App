@@ -27,21 +27,14 @@ struct CompleteSignUpView: View {
                     .multilineTextAlignment(.center)
                     .fontWeight(.medium)
             }
-            Button {
+
+            IGButton(action: {
                 Task{
                      await  ViewModel.createUser(with: AuthManager)
 
                     
                 }
-            } label: {
-                Text("Complete Sing Up")
-                    .foregroundStyle(.white)
-                    .fontWeight(.bold)
-                    .frame(width: 360, height: 55)
-                    .background(Color.blue)
-                    .clipShape(.rect(cornerRadius: 12))
-            }
-            
+            }, title: "Complete Registration", isLoading: ViewModel.isloading)
             .toolbar{
             ToolbarItem(placement: .topBarLeading) {
         Button(action: {
@@ -63,6 +56,5 @@ struct CompleteSignUpView: View {
 
 #Preview {
     CompleteSignUpView()
-        .environmentObject(RegistrationViewModel())
         
 }

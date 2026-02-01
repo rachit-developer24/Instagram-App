@@ -20,7 +20,7 @@ struct CreatePasswordView: View {
                                 Text("Your Password must be 6 characters long")
                                     .foregroundStyle(.gray)
                             }
-                            TextFieldComponent(text: $ViewModel.password, placeholder: "Password")
+                            IGInputField(text: $ViewModel.password, placeholder: "Enter Your Password...", securefield: true)
                             Button {
                                 router.navigate()
                             } label: {
@@ -59,5 +59,4 @@ extension CreatePasswordView{
 
 #Preview {
     CreatePasswordView()
-        .environmentObject(RegistrationViewModel())
 }

@@ -17,7 +17,12 @@ class UserManager:ObservableObject {
     
     func fetchCurrentUser()async {
         do{
+            if let user = currentUser{
+                print("\(user.email)")
+                print("\(user.id)")
+            }
             self.currentUser = try await service.fetchCurrentUser()
+          
         }catch{
             
         }

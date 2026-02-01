@@ -22,9 +22,11 @@ struct AddUserName: View {
                             .foregroundStyle(.gray)
                             .multilineTextAlignment(.center)
                     }
-                    TextFieldComponent(text: $ViewModel.username, placeholder: "UserName")
+                    IGInputField(text: $ViewModel.username, error: $ViewModel.registrationError, isloading: ViewModel.isValidating, placeholder: "Enter Your Username...", securefield: false)
                     Button {
-                        router.navigate()
+                        Task{
+                           await onNext()
+                        }
                     } label: {
                         Text("Next")
                             .foregroundStyle(.white)
@@ -58,18 +60,13 @@ private extension AddUserName{
     var UserNameisValid: Bool{
         return ViewModel.username.isValidUsername()
     }
-    
-    func onNext(){
-        Task{
-            let userNameisValid = try await authManager.validateUsername(with: ViewModel.username)
-            
-            if UserNameisValid{
-                router.navigate()
-            }
+    func onNext()async{
+        let isValidUsername =  await ViewModel.validateUserName()
+        if isValidUsername{
+            router.navigate()
         }
-    }
+        }
 }
 #Preview {
     AddUserName()
-        .environmentObject(RegistrationViewModel())
 }

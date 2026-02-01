@@ -14,7 +14,7 @@ struct CurrentProfileView: View {
         NavigationStack{
             ScrollView{
                 if let user = userManager.currentUser{
-                    ProfileView(user: user)
+                   ProfileView(user: user)
                     
                 }
                 

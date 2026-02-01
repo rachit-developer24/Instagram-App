@@ -73,10 +73,13 @@ struct PostSubView: View {
                 .padding(.horizontal,7)
                 .fontWeight(.semibold)
                 HStack{
-                    Text(post.user?.fullName ?? "")
-                        .fontWeight(.semibold)
-                    +
-                    Text(" \(post.caption)" )
+                    let combined: AttributedString = {
+                        var name = AttributedString(post.user?.fullName ?? "")
+                        name.inlinePresentationIntent = .stronglyEmphasized
+                        let caption = AttributedString(" \(post.caption)")
+                        return name + caption
+                    }()
+                    Text(combined)
                     Spacer()
                 }
                 .padding(.horizontal,7)

@@ -12,12 +12,16 @@ class PostViewModel:ObservableObject{
     @Published var posts:[Post] = [Post]()
     init(){
         Task{
-            try await fetchPosts()
+             await fetchPosts()
         }
     }
     
-    func fetchPosts()async throws{
-        self.posts =  try await  PostSevice.FetchFeedPosts()
+    func fetchPosts()async{
+        do{
+            self.posts = try await  PostSevice.FetchFeedPosts()
+        }catch{
+            print("\(error.localizedDescription)")
         }
-    }
 
+    }
+}
