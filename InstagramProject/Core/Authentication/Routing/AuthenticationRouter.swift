@@ -15,6 +15,7 @@ class AuthenticationRouter:ObservableObject{
     func startRegistration(){
         guard let initialStep = RegistrationSteps(rawValue: 0)else {return}
         navigationPath.append(initialStep)
+        self.currentStep = initialStep
     }
     
     func navigate(){
