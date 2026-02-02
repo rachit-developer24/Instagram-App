@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var authManager:AuthManager
-    @StateObject var LoginViewModel = SignInViewModel()
+    @StateObject var loginViewModel = LoginViewModel()
     @StateObject var router = AuthenticationRouter()
     var body: some View {
         
@@ -24,10 +24,10 @@ struct LoginView: View {
                         .frame(width: 250, height: 120)
                     
                     VStack(spacing:15){
-                        TextFieldComponent(text: $LoginViewModel.email, placeholder: "Enter Your Email")
+                        TextFieldComponent(text: $loginViewModel.email, placeholder: "Enter Your Email")
                             .textInputAutocapitalization(.never)
                             .keyboardType(.emailAddress)
-                        TextFieldComponent(text: $LoginViewModel.password, placeholder: "Enter your password", secureField: true)
+                        TextFieldComponent(text: $loginViewModel.password, placeholder: "Enter your password", secureField: true)
                         
                     }
                     
@@ -46,9 +46,9 @@ struct LoginView: View {
                     
                     IGButton(action: {
                         Task{
-                            try await LoginViewModel.signIn(with:authManager )
+                            try await loginViewModel.signIn(with:authManager )
                         }
-                    }, title: "Login", isLoading: LoginViewModel.isloading)
+                    }, title: "Login", isLoading: loginViewModel.isloading)
                     .disabled(!formisValid)
                     .opacity(formisValid ? 1: 0.5)
                     .padding()
@@ -85,8 +85,8 @@ struct LoginView: View {
                     .foregroundStyle(Color.blue)
                     .fontWeight(.semibold)
             }
-            .alert("Oops!", isPresented: $LoginViewModel.showError, actions: {}){
-                Text(LoginViewModel.error?.localizedDescription ?? "An unknown error occurred.")
+            .alert("Oops!", isPresented: $loginViewModel.showError, actions: {}){
+                Text(loginViewModel.error?.localizedDescription ?? "An unknown error occurred.")
             }
             
                 .navigationDestination(for: RegistrationSteps.self) { step in
@@ -114,7 +114,7 @@ struct LoginView: View {
 }
 extension LoginView{
     var formisValid:Bool{
-        return LoginViewModel.email.isValidEmail() &&  LoginViewModel.password.isValidPassword()
+        return loginViewModel.email.isValidEmail() &&  loginViewModel.password.isValidPassword()
     }
 }
 

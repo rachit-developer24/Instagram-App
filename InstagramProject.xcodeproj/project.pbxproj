@@ -36,6 +36,7 @@
 			membershipExceptions = (
 				Core/Authentication/Tests/AuthenticationRouterTests.swift,
 				Core/Authentication/Tests/AuthManagerTests.swift,
+				Core/Authentication/Tests/LoginViewModelTests.swift,
 			);
 			target = 92BD24F02E842B7A00E0D6B6 /* InstagramProject */;
 		};
@@ -44,6 +45,7 @@
 			membershipExceptions = (
 				Core/Authentication/Tests/AuthenticationRouterTests.swift,
 				Core/Authentication/Tests/AuthManagerTests.swift,
+				Core/Authentication/Tests/LoginViewModelTests.swift,
 			);
 			target = 9293EC082F04237F008E7E91 /* InstagramProjectTests */;
 		};

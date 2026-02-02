@@ -7,7 +7,7 @@
 
 import Foundation
 @MainActor
-class SignInViewModel: ObservableObject {
+class LoginViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var showError: Bool = false
     @Published var password: String = ""
