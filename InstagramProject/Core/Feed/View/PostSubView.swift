@@ -25,9 +25,15 @@ struct PostSubView: View {
             HStack{
                 if let user = post.user{
                     CircularProfileView(user: user, size: .xSmall)
+                    
+                    NavigationLink(value: FeedRouter.profile(user)) {
+                        Text(user.username)
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                    }
+                    
                 }
-                Text(post.user?.fullName ?? "")
-                    .fontWeight(.semibold)
+              
                 Spacer()
             }
             .padding(.horizontal,7)

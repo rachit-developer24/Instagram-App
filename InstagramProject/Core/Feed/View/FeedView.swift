@@ -11,27 +11,45 @@ struct FeedView: View {
     @StateObject var ViewModel = PostViewModel()
     var body: some View {
         NavigationStack{
-            ScrollView {
-                LazyVStack(spacing:20){
-                    ForEach(ViewModel.posts){post in
-                        PostSubView(post: post)
+            Group{
+                switch ViewModel.loadingState{
+                case .empty:
+                    Text("")
+                case .error:
+                    Text("An Unknown Error Occured")
+                case .loading:
+                    ProgressView()
+                case .complete:
+                    ScrollView {
+                        LazyVStack(spacing:20){
+                            ForEach(ViewModel.posts){post in
+                                PostSubView(post: post)
+                            }
+                            .padding(.vertical,10)
+                        }
                     }
-                    .padding(.vertical,10)
                 }
-                .navigationBarTitle("Feed")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar{
-                    ToolbarItem(placement: .topBarLeading) {
-                        Image("instagram-logo")
-                            .resizable()
-                            .frame(width: 100, height: 50)
-                            .scaledToFill()
-                    }
-                    ToolbarItem(placement: .topBarTrailing) {
+            }
+            
+            .navigationBarTitle("Feed")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(for:FeedRouter.self ) { route in
+                route.view
+            }
+            .toolbar{
+                ToolbarItem(placement: .topBarLeading) {
+                    Image("instagram-logo")
+                        .resizable()
+                        .frame(width: 100, height: 50)
+                        .scaledToFill()
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink(value: FeedRouter.inbox) {
                         Image(systemName: "paperplane")
                     }
                 }
             }
+            
         }
     }
 }

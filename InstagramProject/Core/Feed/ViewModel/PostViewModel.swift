@@ -10,6 +10,7 @@ import Firebase
 @MainActor
 class PostViewModel:ObservableObject{
     @Published var posts:[Post] = [Post]()
+    @Published var loadingState:ContentLoadingState = .loading
     init(){
         Task{
              await fetchPosts()
@@ -19,7 +20,9 @@ class PostViewModel:ObservableObject{
     func fetchPosts()async{
         do{
             self.posts = try await  PostSevice.FetchFeedPosts()
+            self.loadingState = posts.isEmpty ? .empty : .complete
         }catch{
+            self.loadingState = .error
             print("\(error.localizedDescription)")
         }
 
